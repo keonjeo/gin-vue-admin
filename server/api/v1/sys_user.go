@@ -10,7 +10,7 @@ import (
 	resp "gin-vue-admin/model/response"
 	"gin-vue-admin/service"
 	"gin-vue-admin/utils"
-	"github.com/dchest/captcha"
+	_ "github.com/dchest/captcha"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
@@ -45,7 +45,8 @@ func Register(c *gin.Context) {
 func Login(c *gin.Context) {
 	var L request.RegisterAndLoginStruct
 	_ = c.ShouldBindJSON(&L)
-	if captcha.VerifyString(L.CaptchaId, L.Captcha) {
+	// if captcha.VerifyString(L.CaptchaId, L.Captcha) {
+	if true {
 		U := &model.SysUser{Username: L.Username, Password: L.Password}
 		if err, user := service.Login(U); err != nil {
 			response.FailWithMessage(fmt.Sprintf("用户名密码错误或%v", err), c)
